@@ -54,3 +54,41 @@ drawGame();
 // Step 5: Improvements
 //
 // ===================================
+
+// Step 1: Movement (game loop)
+const updateGame = () => {
+  // Move the snake by adding a new head based on the current direction
+  const newHead = {
+    x: snake[0].x + direction.x,
+    y: snake[0].y + direction.y
+  };
+  snake.unshift(newHead);
+
+  // Remove the last segment of the snake to maintain its length
+  snake.pop();
+
+  drawGame();
+};
+
+// Set up the game loop to update every 100 milliseconds
+setInterval(updateGame, 100);
+
+// Step 2: Keyboard controls (arrow keys)
+document.addEventListener("keydown", (event) => {
+  switch (event.key) {
+    case "ArrowUp":
+      if (direction.y === 0) direction = { x: 0, y: -1 };
+      break;
+    case "ArrowDown":
+      if (direction.y === 0) direction = { x: 0, y: 1 };
+      break;
+    case "ArrowLeft":
+      if (direction.x === 0) direction = { x: -1, y: 0 };
+      break;
+    case "ArrowRight":
+      if (direction.x === 0) direction = { x: 1, y: 0 };
+      break;
+  }
+});
+
+
