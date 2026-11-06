@@ -94,11 +94,7 @@ const updateGame = () => {
 
   if (ateFood) {
     score++;
-    // Generate new food position
-    food = {
-      x: Math.floor(Math.random() * tileCount),
-      y: Math.floor(Math.random() * tileCount)
-    };
+    placeFood();
   } else {
     snake.pop(); // Remove the last segment of the snake to maintain its length
   }
@@ -109,6 +105,13 @@ const updateGame = () => {
 // Set up the game loop to update every 100 milliseconds
 const gameLoop = setInterval(updateGame, 100);
 
+// Generate new food position
+const placeFood = () => {
+  food = {
+    x: Math.floor(Math.random() * tileCount),
+    y: Math.floor(Math.random() * tileCount)
+  }
+};
 
 // Step 2: Keyboard controls (arrow keys)
 document.addEventListener("keydown", (event) => {
