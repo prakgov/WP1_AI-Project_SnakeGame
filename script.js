@@ -96,6 +96,13 @@ const updateGame = () => {
 
   if (ateFood) {
     score++;
+
+    if (score > highScore) {
+      highScore = score;
+      localStorage.setItem("highScore", highScore);
+      highScoreElement.textContent = highScore;
+    }
+
     placeFood();
   } else {
     snake.pop(); // Remove the last segment of the snake to maintain its length
@@ -134,7 +141,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 // Step 5: Improvements
-// Restart game state and loop
+// Improvement 1:  Restart game state and loop
 const restartGame = () => {
   // Reset game state
   snake = [
@@ -156,7 +163,7 @@ const restartGame = () => {
 // Add event listener to the restart button
 restartButton.addEventListener("click", restartGame);
 
-// Pause and Resume functionality
+// Improvement 2: Pause and Resume functionality
 let isPaused = false;
 
 const togglePause = () => {
@@ -176,3 +183,8 @@ document.addEventListener("keydown", (event) => {
     togglePause();
   }
 });
+
+// Improvement 3: Save high score using localStorage and display it
+const highScoreElement = document.getElementById("highScore");
+let highScore = Number(localStorage.getItem("highScore")) || 0;
+highScoreElement.textContent = highScore;
