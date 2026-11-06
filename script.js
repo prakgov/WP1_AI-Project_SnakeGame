@@ -133,6 +133,7 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+// Step 5: Improvements
 // Restart game state and loop
 const restartGame = () => {
   // Reset game state
@@ -154,3 +155,24 @@ const restartGame = () => {
 
 // Add event listener to the restart button
 restartButton.addEventListener("click", restartGame);
+
+// Pause and Resume functionality
+let isPaused = false;
+
+const togglePause = () => {
+  if (isPaused) {
+    gameLoop = setInterval(updateGame, 100);
+    infoElement.textContent = "";
+  } else {
+    clearInterval(gameLoop);
+    infoElement.textContent = "Game paused. Press 'P' to resume.";
+  }
+  isPaused = !isPaused;
+};
+
+// Add event listener for the 'P' key to toggle pause/resume
+document.addEventListener("keydown", (event) => {
+  if (event.key === "p" || event.key === "P") {
+    togglePause();
+  }
+});
