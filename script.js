@@ -97,12 +97,13 @@ const updateGame = () => {
   if (ateFood) {
     score++;
 
+    // Update high score if necessary 
     if (score > highScore) {
       highScore = score;
       localStorage.setItem("highScore", highScore);
       highScoreElement.textContent = highScore;
     }
-
+    // Generate new food position
     placeFood();
   } else {
     snake.pop(); // Remove the last segment of the snake to maintain its length
