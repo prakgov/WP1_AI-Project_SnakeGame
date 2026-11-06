@@ -66,16 +66,49 @@ const updateGame = () => {
     x: snake[0].x + direction.x,
     y: snake[0].y + direction.y
   };
+  const ateFood = newHead.x === food.x && newHead.y === food.y;
+
+  const hitWall = 
+    newHead.x < 0 || 
+    newHead.x >= tileCount || 
+    newHead.y < 0 || 
+    newHead.y >= tileCount;
+
+  // Check for collision with the boundaries of the canvas
+    if (hitWall) {
+    clearInterval(gameLoop);
+    infoElement.textContent = "Game over! Press F5 to restart.";
+    return;
+  }
+
+  // Check for collision with itself
+  const hitSelf = snake.some(segment => 
+    segment.x === newHead.x && segment.y === newHead.y);
+  if (hitSelf) {
+    clearInterval(gameLoop);
+    infoElement.textContent = "Game over! Press F5 to restart.";
+    return;
+  }
+
   snake.unshift(newHead);
 
-  // Remove the last segment of the snake to maintain its length
-  snake.pop();
+  if (ateFood) {
+    score++;
+    // Generate new food position
+    food = {
+      x: Math.floor(Math.random() * tileCount),
+      y: Math.floor(Math.random() * tileCount)
+    };
+  } else {
+    snake.pop(); // Remove the last segment of the snake to maintain its length
+  }
 
   drawGame();
 };
 
 // Set up the game loop to update every 100 milliseconds
-setInterval(updateGame, 100);
+const gameLoop = setInterval(updateGame, 100);
+
 
 // Step 2: Keyboard controls (arrow keys)
 document.addEventListener("keydown", (event) => {
