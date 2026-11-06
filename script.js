@@ -4,6 +4,8 @@ const canvas =
 const ctx = canvas.getContext("2d");
 const gridSize = 20;
 const tileCount = canvas.width / gridSize;
+const scoreElement = document.getElementById("score");
+const infoElement = document.getElementById("info");
 
 // ===== INITIAL STATE =====
 let snake = [
@@ -17,6 +19,8 @@ let score = 0;
 
 // ===== DRAWING =====
 const drawGame = () => {
+  scoreElement.textContent = score;
+
   ctx.clearRect(0, 0,
     canvas.width, canvas.height);
 
@@ -90,5 +94,3 @@ document.addEventListener("keydown", (event) => {
       break;
   }
 });
-
-
